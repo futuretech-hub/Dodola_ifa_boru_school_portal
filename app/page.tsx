@@ -125,10 +125,8 @@ export default function Home() {
           <div className="hero-sky-wash" />
           <div className="hero-copy">
             <SchoolMark />
-            <p className="hero-kicker">Ifa Boru Boarding Secondary School</p>
             <h1>Dodola Ifa Boru</h1>
             <p className="hero-school-name">Special Boarding School</p>
-            <p className="hero-location">Dodola · Ethiopia</p>
           </div>
           <div className="wave wave-one" />
           <div className="wave wave-two" />
@@ -264,7 +262,6 @@ export default function Home() {
             </button>
           )}
 
-          <p className="portal-note">For students, families, and school staff</p>
         </div>
       </section>
     </main>

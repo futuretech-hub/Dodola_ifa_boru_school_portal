@@ -149,7 +149,6 @@ a {
   letter-spacing: 0.08em;
 }
 
-.hero-kicker,
 .panel-kicker {
   margin: 0;
   font-size: clamp(0.68rem, 1vw, 0.85rem);
@@ -158,12 +157,8 @@ a {
   text-transform: uppercase;
 }
 
-.hero-kicker {
-  color: #fff4cc;
-}
-
 .hero-copy h1 {
-  margin: 13px 0 0;
+  margin: 0;
   color: #fff;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2.5rem, 5vw, 5.1rem);
@@ -182,37 +177,29 @@ a {
   line-height: 1.08;
 }
 
-.hero-location {
-  margin: 18px 0 0;
-  color: #e8f5ff;
-  font-size: 0.82rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .wave {
   position: absolute;
-  right: -8%;
-  left: -8%;
+  right: -12%;
+  left: -12%;
   z-index: 1;
-  height: 190px;
-  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
-  transform: rotate(-4deg);
+  width: 124%;
+  height: 210px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
 .wave-one {
-  bottom: -96px;
+  bottom: -112px;
   background: #dbeeff;
 }
 
 .wave-two {
-  bottom: -126px;
+  bottom: -145px;
   z-index: 2;
   background: #2188ed;
 }
 
 .wave-three {
-  bottom: -164px;
+  bottom: -181px;
   z-index: 3;
   background: linear-gradient(180deg, #1257bb, #052a70);
 }
@@ -467,13 +454,6 @@ a {
   height: 24px;
 }
 
-.portal-note {
-  margin: 22px 0 0;
-  color: #8094b7;
-  font-size: 0.76rem;
-  text-align: center;
-}
-
 @media (max-width: 880px) {
   .portal-landing {
     padding: 0;
@@ -516,11 +496,6 @@ a {
 
   .hero-school-name {
     font-size: 1.35rem;
-  }
-
-  .hero-location {
-    margin-top: 12px;
-    font-size: 0.68rem;
   }
 
   .auth-panel {
