@@ -121,17 +121,29 @@ a {
   place-items: center;
   margin-bottom: clamp(20px, 3vw, 34px);
   overflow: hidden;
-  border: 5px solid #f7b91e;
+  border: 0;
   border-radius: 50%;
-  background: radial-gradient(circle, #1857a8 0 58%, #f7b91e 59% 65%, #073c91 66%);
-  box-shadow: 0 12px 28px rgba(0, 44, 118, 0.35), 0 0 0 7px rgba(255, 255, 255, 0.48);
+  background: conic-gradient(from 220deg, #fff2a2 0 12%, #d98c00 12% 28%, #f8bd21 28% 47%, #fff0a0 47% 62%, #d78a00 62% 78%, #f8c52d 78% 100%);
+  box-shadow: 0 0 0 2px rgba(120, 72, 0, 0.55), 0 0 0 8px rgba(255, 255, 255, 0.76), 0 15px 30px rgba(0, 44, 118, 0.38);
+}
+
+.school-mark::before {
+  position: absolute;
+  inset: 6px;
+  z-index: 2;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
 }
 
 .school-mark img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: 9px;
+  z-index: 1;
+  width: calc(100% - 18px);
+  height: calc(100% - 18px);
+  border-radius: 50%;
   object-fit: cover;
 }
 
@@ -139,6 +151,7 @@ a {
   display: grid;
   width: 72%;
   height: 72%;
+  z-index: 1;
   place-items: center;
   border: 2px solid rgba(255, 255, 255, 0.76);
   border-radius: 50%;
@@ -177,31 +190,12 @@ a {
   line-height: 1.08;
 }
 
-.wave {
+.hero-waves {
   position: absolute;
-  right: -12%;
-  left: -12%;
+  right: 0;
+  bottom: 0;
+  left: 0;
   z-index: 1;
-  width: 124%;
-  height: 210px;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-}
-
-.wave-one {
-  bottom: -112px;
-  background: #dbeeff;
-}
-
-.wave-two {
-  bottom: -145px;
-  z-index: 2;
-  background: #2188ed;
-}
-
-.wave-three {
-  bottom: -181px;
-  z-index: 3;
-  background: linear-gradient(180deg, #1257bb, #052a70);
 }
 
 .auth-panel {
@@ -344,11 +338,6 @@ a {
 .visibility-icon {
   width: 25px;
   height: 25px;
-}
-
-.visibility-spacer {
-  width: 44px;
-  flex: 0 0 auto;
 }
 
 .form-row {

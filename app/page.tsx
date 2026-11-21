@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { FormEvent, useState } from "react";
+import { DecorativeWaves } from "@/components/DecorativeWaves";
 
 type Mode = "login" | "register";
 
@@ -102,12 +103,14 @@ function FieldShell({ children }: { children: React.ReactNode }) {
 export default function Home() {
   const [mode, setMode] = useState<Mode>("login");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const switchMode = (nextMode: Mode) => {
     setMode(nextMode);
     setSubmitted(false);
     setShowPassword(false);
+    setShowConfirmPassword(false);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -128,9 +131,7 @@ export default function Home() {
             <h1>Dodola Ifa Boru</h1>
             <p className="hero-school-name">Special Boarding School</p>
           </div>
-          <div className="wave wave-one" />
-          <div className="wave wave-two" />
-          <div className="wave wave-three" />
+          <DecorativeWaves className="hero-waves" />
         </div>
 
         <div className="auth-panel">
@@ -216,12 +217,19 @@ export default function Home() {
                 <input
                   id="confirm-password"
                   name="confirm-password"
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   autoComplete="new-password"
                   required
                 />
-                <span className="visibility-spacer" aria-hidden="true" />
+                <button
+                  className="visibility-button"
+                  type="button"
+                  aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+                  onClick={() => setShowConfirmPassword((current) => !current)}
+                >
+                  <EyeIcon hidden={showConfirmPassword} />
+                </button>
               </FieldShell>
             )}
 
