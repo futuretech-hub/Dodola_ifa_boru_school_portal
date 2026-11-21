@@ -42,21 +42,21 @@ export function DecorativeWaves({
         {/* Top layer: bright blue. The cubic C commands create flowing Bézier curves. */}
         <path
           className={`${styles.wavePath} ${styles.waveTop}`}
-          d="M0 92 C180 28 340 22 520 82 C700 142 820 162 1010 103 C1180 50 1300 36 1440 76 L1440 300 L0 300 Z"
+          d="M0 102 C150 30 315 20 485 82 C665 148 805 162 972 98 C1158 26 1300 42 1440 82 L1440 300 L0 300 Z"
           fill="#168BFA"
         />
 
         {/* Middle layer: royal blue, starting lower so the top layer remains visible. */}
         <path
           className={`${styles.wavePath} ${styles.waveMiddle}`}
-          d="M0 148 C190 84 340 88 530 143 C720 198 850 210 1030 159 C1190 114 1300 108 1440 139 L1440 300 L0 300 Z"
+          d="M0 142 C156 78 322 72 500 142 C680 214 824 218 1002 146 C1170 78 1314 88 1440 132 L1440 300 L0 300 Z"
           fill="#0756C5"
         />
 
         {/* Bottom layer: deep navy blue, forming the visual base of the stack. */}
         <path
           className={`${styles.wavePath} ${styles.waveBottom}`}
-          d="M0 208 C190 153 350 158 540 207 C720 254 875 264 1050 218 C1200 180 1320 179 1440 205 L1440 300 L0 300 Z"
+          d="M0 190 C172 132 344 132 526 202 C706 272 864 270 1044 204 C1204 146 1332 160 1440 194 L1440 300 L0 300 Z"
           fill="#032D78"
         />
       </svg>

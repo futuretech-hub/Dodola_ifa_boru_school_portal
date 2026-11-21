@@ -140,7 +140,7 @@ export default function Home() {
             <h2>{isLogin ? "Welcome back" : "Create your account"}</h2>
             <p>
               {isLogin
-                ? "Sign in to continue to your school workspace."
+                ? "Log in to continue to your school workspace."
                 : "Register to access your Dodola Ifa Boru school workspace."}
             </p>
           </div>

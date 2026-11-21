@@ -13,8 +13,15 @@
   /* The viewBox supplies the height ratio; this clamp scales it across breakpoints. */
   display: block;
   width: 100%;
-  height: clamp(108px, 15vw, 214px);
+  height: clamp(78px, 10vw, 158px);
   overflow: visible;
+}
+
+/* Portrait layouts have less horizontal room, so keep the decoration especially light. */
+@media (orientation: portrait) {
+  .svg {
+    height: clamp(70px, 16vw, 124px);
+  }
 }
 
 .wavePath {
