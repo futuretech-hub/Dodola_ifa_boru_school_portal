@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { DecorativeWaves } from "@/components/DecorativeWaves";
 
 type Mode = "login" | "register";
@@ -55,10 +55,9 @@ function ChevronIcon() {
 function LoginIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="button-icon">
-      <path d="M14 5h5v14h-5" />
-      <path d="M12 12h9" />
-      <path d="m17 8 4 4-4 4" />
-      <path d="M3 12h9" />
+      <path d="M13.5 4.5H19v15h-5.5" />
+      <path d="M3.5 12h11" />
+      <path d="m10.5 8.5 3.5 3.5-3.5 3.5" />
     </svg>
   );
 }
@@ -66,9 +65,9 @@ function LoginIcon() {
 function RegisterIcon() {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="button-icon">
-      <circle cx="10" cy="8" r="3" />
-      <path d="M4 20c.4-3.2 2.2-5 6-5s5.6 1.8 6 5" />
-      <path d="M19 12v7M15.5 15.5h7" />
+      <circle cx="9" cy="8" r="3" />
+      <path d="M3.5 20c.45-3.2 2.3-5 5.5-5s5.05 1.8 5.5 5" />
+      <path d="M18 12v7M14.5 15.5h7" />
     </svg>
   );
 }
@@ -98,6 +97,66 @@ function SchoolMark() {
 
 function FieldShell({ children }: { children: React.ReactNode }) {
   return <div className="field-shell">{children}</div>;
+}
+
+type SelectFieldProps = {
+  label: string;
+  name: string;
+  options: string[];
+};
+
+function SelectField({ label, name, options }: SelectFieldProps) {
+  const [selected, setSelected] = useState("");
+  const [open, setOpen] = useState(false);
+  const fieldRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const closeOnOutsideClick = (event: MouseEvent) => {
+      if (fieldRef.current && !fieldRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", closeOnOutsideClick);
+    return () => document.removeEventListener("mousedown", closeOnOutsideClick);
+  }, []);
+
+  return (
+    <div className="select-field" ref={fieldRef}>
+      <input type="hidden" name={name} value={selected} required />
+      <button
+        className={`select-trigger${open ? " is-open" : ""}${selected ? " has-value" : ""}`}
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>{selected || label}</span>
+        <ChevronIcon />
+      </button>
+
+      {open && (
+        <div className="select-menu" role="listbox" aria-label={label}>
+          {options.map((option) => (
+            <button
+              className={`select-option${selected === option ? " is-selected" : ""}`}
+              key={option}
+              type="button"
+              role="option"
+              aria-selected={selected === option}
+              onClick={() => {
+                setSelected(option);
+                setOpen(false);
+              }}
+            >
+              <span>{option}</span>
+              {selected === option && <span className="option-check">✓</span>}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function Home() {
@@ -163,31 +222,8 @@ export default function Home() {
 
             {mode === "register" && (
               <div className="form-row">
-                <label className="select-shell">
-                  <span className="sr-only">Grade</span>
-                  <select name="grade" defaultValue="" required>
-                    <option value="" disabled>
-                      Grade
-                    </option>
-                    <option>Grade 9</option>
-                    <option>Grade 10</option>
-                    <option>Grade 11</option>
-                    <option>Grade 12</option>
-                  </select>
-                  <ChevronIcon />
-                </label>
-                <label className="select-shell">
-                  <span className="sr-only">Section</span>
-                  <select name="section" defaultValue="" required>
-                    <option value="" disabled>
-                      Section
-                    </option>
-                    <option>Section A</option>
-                    <option>Section B</option>
-                    <option>Section C</option>
-                  </select>
-                  <ChevronIcon />
-                </label>
+                <SelectField label="Grade" name="grade" options={["Grade 9", "Grade 10", "Grade 11", "Grade 12"]} />
+                <SelectField label="Section" name="section" options={["Section A", "Section B", "Section C"]} />
               </div>
             )}
 
