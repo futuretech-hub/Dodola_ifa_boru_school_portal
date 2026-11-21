@@ -13,7 +13,7 @@
   /* The viewBox supplies the height ratio; this clamp scales it across breakpoints. */
   display: block;
   width: 100%;
-  height: clamp(150px, 22vw, 300px);
+  height: clamp(108px, 15vw, 214px);
   overflow: visible;
 }
 

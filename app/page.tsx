@@ -196,6 +196,7 @@ export default function Home() {
               <input
                 id="password"
                 name="password"
+                className="password-input"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 autoComplete={isLogin ? "current-password" : "new-password"}
@@ -217,6 +218,7 @@ export default function Home() {
                 <input
                   id="confirm-password"
                   name="confirm-password"
+                  className="password-input"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   autoComplete="new-password"
