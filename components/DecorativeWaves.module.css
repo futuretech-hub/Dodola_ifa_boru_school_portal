@@ -1,0 +1,52 @@
+.wrapper {
+  /* The wrapper has no fill, so whatever is behind the waves remains visible. */
+  width: 100%;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.svg {
+  /* The viewBox supplies the height ratio; this clamp scales it across breakpoints. */
+  display: block;
+  width: 100%;
+  height: clamp(150px, 22vw, 300px);
+  overflow: visible;
+}
+
+.wavePath {
+  /* Transform origin keeps any optional motion centered and prevents edge gaps. */
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+/* Animation is intentionally opt-in through the component's `animated` prop. */
+.animated .wavePath {
+  animation: gentleWaveDrift 16s ease-in-out infinite alternate;
+}
+
+.animated .waveMiddle {
+  animation-duration: 19s;
+  animation-direction: alternate-reverse;
+}
+
+.animated .waveBottom {
+  animation-duration: 23s;
+}
+
+@keyframes gentleWaveDrift {
+  from {
+    opacity: 0.97;
+    transform: scaleX(1.015) translateX(-0.25%);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1.025) translateX(0.25%);
+  }
+}
+
+/* Respect the user's operating-system motion preference automatically. */
+@media (prefers-reduced-motion: reduce) {
+  .animated .wavePath {
+    animation: none;
+  }
+}
