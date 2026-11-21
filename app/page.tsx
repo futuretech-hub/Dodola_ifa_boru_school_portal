@@ -223,7 +223,11 @@ export default function Home() {
             {mode === "register" && (
               <div className="form-row">
                 <SelectField label="Grade" name="grade" options={["Grade 9", "Grade 10", "Grade 11", "Grade 12"]} />
-                <SelectField label="Section" name="section" options={["Section A", "Section B", "Section C"]} />
+                <SelectField
+                  label="Section"
+                  name="section"
+                  options={["Section A", "Section B", "Section C", "Section D", "Section E", "Section F"]}
+                />
               </div>
             )}
 
