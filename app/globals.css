@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #022c22;
-  --foreground: #ecfdf5;
+  --blue-950: #06275d;
+  --blue-900: #073a9a;
+  --blue-700: #0b63d8;
+  --blue-500: #1688ee;
+  --blue-100: #dbeafe;
+  --ink: #113f91;
+  --muted: #5a719b;
+  --background: #eef6ff;
+  --foreground: #123d89;
 }
 
 * {
@@ -20,7 +27,519 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.portal-landing {
+  min-height: 100vh;
+  padding: clamp(16px, 3vw, 48px);
+  background:
+    radial-gradient(circle at 12% 18%, rgba(139, 205, 255, 0.3), transparent 28rem),
+    linear-gradient(145deg, #f5faff 0%, #e7f2ff 100%);
+}
+
+.auth-stage {
+  width: min(1180px, 100%);
+  min-height: min(760px, calc(100vh - 32px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(400px, 0.94fr);
+  overflow: hidden;
+  border: 1px solid rgba(12, 80, 176, 0.13);
+  border-radius: 34px;
+  background: #f8fbff;
+  box-shadow: 0 28px 70px rgba(5, 48, 117, 0.2), 0 3px 12px rgba(5, 48, 117, 0.08);
+}
+
+.hero-visual {
+  position: relative;
+  isolation: isolate;
+  min-height: 680px;
+  overflow: hidden;
+  background: linear-gradient(155deg, #126bd2 0%, #7ed1ff 53%, #d8efff 100%);
+}
+
+.hero-photo {
+  position: absolute;
+  inset: 0 0 20% 0;
+  z-index: -3;
+  background-color: #7fcfff;
+  background-image: linear-gradient(180deg, rgba(4, 70, 152, 0.08), rgba(7, 64, 145, 0.35)), url("/images/school-building.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.hero-sky-wash {
+  position: absolute;
+  inset: 0 0 20% 0;
+  z-index: -2;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(5, 63, 150, 0.16) 70%, rgba(5, 63, 150, 0.42));
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  min-height: 570px;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(28px, 5vw, 68px) 28px 240px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 2px 18px rgba(2, 35, 93, 0.34);
+}
+
+.school-mark {
+  position: relative;
+  display: grid;
+  width: clamp(112px, 16vw, 182px);
+  aspect-ratio: 1;
+  place-items: center;
+  margin-bottom: clamp(20px, 3vw, 34px);
+  overflow: hidden;
+  border: 5px solid #f7b91e;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1857a8 0 58%, #f7b91e 59% 65%, #073c91 66%);
+  box-shadow: 0 12px 28px rgba(0, 44, 118, 0.35), 0 0 0 7px rgba(255, 255, 255, 0.48);
+}
+
+.school-mark img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.school-mark-fallback {
+  display: grid;
+  width: 72%;
+  height: 72%;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  border-radius: 50%;
+  color: white;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1rem, 3vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.hero-kicker,
+.panel-kicker {
+  margin: 0;
+  font-size: clamp(0.68rem, 1vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.hero-kicker {
+  color: #fff4cc;
+}
+
+.hero-copy h1 {
+  margin: 13px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 5vw, 5.1rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.hero-school-name {
+  max-width: 470px;
+  margin: 12px 0 0;
+  color: #fff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2.6vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+.hero-location {
+  margin: 18px 0 0;
+  color: #e8f5ff;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.wave {
+  position: absolute;
+  right: -8%;
+  left: -8%;
+  z-index: 1;
+  height: 190px;
+  border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+  transform: rotate(-4deg);
+}
+
+.wave-one {
+  bottom: -96px;
+  background: #dbeeff;
+}
+
+.wave-two {
+  bottom: -126px;
+  z-index: 2;
+  background: #2188ed;
+}
+
+.wave-three {
+  bottom: -164px;
+  z-index: 3;
+  background: linear-gradient(180deg, #1257bb, #052a70);
+}
+
+.auth-panel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(30px, 5vw, 70px) clamp(22px, 5vw, 66px);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.auth-heading {
+  margin-bottom: 28px;
+}
+
+.panel-kicker {
+  color: var(--blue-700);
+}
+
+.auth-heading h2 {
+  margin: 9px 0 8px;
+  color: var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 3.5vw, 3.15rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.auth-heading p:last-child {
+  max-width: 330px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.field-shell,
+.select-shell {
+  position: relative;
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  border: 2px solid #c8dcf7;
+  border-radius: 19px;
+  background: linear-gradient(180deg, #fff, #f7fbff);
+  color: var(--ink);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.field-shell:focus-within,
+.select-shell:focus-within {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 4px rgba(22, 136, 238, 0.13);
+  transform: translateY(-1px);
+}
+
+.field-icon,
+.chevron-icon,
+.visibility-icon,
+.button-icon,
+.back-icon {
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.9;
+}
+
+.field-icon {
+  width: 28px;
+  height: 28px;
+  margin: 0 15px;
+  color: var(--blue-700);
+}
+
+.field-shell input,
+.select-shell select {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.field-shell input::placeholder,
+.select-shell select:invalid {
+  color: #5271a4;
+  opacity: 1;
+}
+
+.select-shell {
+  flex: 1;
+  min-width: 0;
+  padding-right: 42px;
+}
+
+.select-shell select {
+  width: 100%;
+  appearance: none;
+  padding: 0 15px;
+}
+
+.chevron-icon {
+  position: absolute;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  color: var(--blue-700);
+  pointer-events: none;
+}
+
+.visibility-button {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  place-items: center;
+  margin-right: 5px;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--blue-700);
+}
+
+.visibility-button:hover,
+.visibility-button:focus-visible {
+  background: #e9f3ff;
+  outline: none;
+}
+
+.visibility-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.visibility-spacer {
+  width: 44px;
+  flex: 0 0 auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.forgot-button {
+  width: fit-content;
+  border: 0;
+  background: transparent;
+  color: var(--blue-900);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.forgot-button:hover,
+.forgot-button:focus-visible {
+  color: var(--blue-500);
+  outline: none;
+  text-decoration: underline;
+}
+
+.primary-button,
+.secondary-button {
+  display: flex;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 19px;
+  font-size: 1.12rem;
+  font-weight: 800;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.primary-button {
+  margin-top: 4px;
+  border: 0;
+  background: linear-gradient(135deg, #0e7ce7, #0647ad);
+  color: white;
+  box-shadow: 0 11px 19px rgba(5, 77, 174, 0.28);
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  background: linear-gradient(135deg, #1590ff, #0750c4);
+  box-shadow: 0 14px 24px rgba(5, 77, 174, 0.34);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.button-icon {
+  width: 29px;
+  height: 29px;
+  stroke-width: 2.1;
+}
+
+.form-status {
+  margin: 0;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: #e8f4ff;
+  color: var(--blue-900);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0 14px;
+  color: var(--blue-900);
+}
+
+.auth-divider span {
+  height: 2px;
+  flex: 1;
+  background: #c5d9f4;
+}
+
+.auth-divider b {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.03rem;
+}
+
+.secondary-button {
+  border: 2px solid var(--blue-900);
+  background: transparent;
+  color: var(--blue-900);
+}
+
+.secondary-button:hover,
+.secondary-button:focus-visible {
+  background: #edf6ff;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.portal-note {
+  margin: 22px 0 0;
+  color: #8094b7;
+  font-size: 0.76rem;
+  text-align: center;
+}
+
+@media (max-width: 880px) {
+  .portal-landing {
+    padding: 0;
+  }
+
+  .auth-stage {
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .hero-visual {
+    min-height: 450px;
+  }
+
+  .hero-copy {
+    min-height: 390px;
+    padding-bottom: 150px;
+  }
+
+  .auth-panel {
+    padding: 46px clamp(22px, 8vw, 70px) 54px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-visual {
+    min-height: 410px;
+  }
+
+  .hero-copy {
+    min-height: 365px;
+    padding: 30px 20px 140px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+
+  .hero-school-name {
+    font-size: 1.35rem;
+  }
+
+  .hero-location {
+    margin-top: 12px;
+    font-size: 0.68rem;
+  }
+
+  .auth-panel {
+    padding: 38px 18px 46px;
+  }
+
+  .auth-heading h2 {
+    font-size: 2.2rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .field-shell,
+  .select-shell,
+  .primary-button,
+  .secondary-button {
+    min-height: 56px;
+    border-radius: 17px;
+  }
 }
