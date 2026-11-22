@@ -207,8 +207,10 @@ export default function Home() {
     }
 
     const gender = String(formData.get("gender") ?? "");
-    const grade = Number(formData.get("grade") ?? 0);
-    const section = String(formData.get("section") ?? "");
+    const gradeLabel = String(formData.get("grade") ?? "");
+    const sectionLabel = String(formData.get("section") ?? "");
+    const grade = Number(gradeLabel.replace("Grade ", ""));
+    const section = sectionLabel.replace("Section ", "");
     const confirmPassword = String(formData.get("confirm-password") ?? "");
 
     if (password !== confirmPassword) {
