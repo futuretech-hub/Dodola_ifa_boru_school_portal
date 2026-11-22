@@ -205,24 +205,28 @@ export default function Home() {
           </div>
 
           <form className="auth-form" onSubmit={handleSubmit}>
-            <label className="sr-only" htmlFor="full-name">
-              Full Name
-            </label>
-            <FieldShell>
-              <UserIcon />
-              <input
-                id="full-name"
-                name="full-name"
-                type="text"
-                placeholder="Full Name"
-                autoComplete="name"
-                required
-              />
-            </FieldShell>
+            {mode === "register" && (
+              <div className="form-row">
+                <FieldShell>
+                  <UserIcon />
+                  <label className="sr-only" htmlFor="full-name">
+                    Full Name
+                  </label>
+                  <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    placeholder="Full Name"
+                    autoComplete="name"
+                    required
+                  />
+                </FieldShell>
+                <SelectField label="Gender" name="gender" options={["Male", "Female"]} />
+              </div>
+            )}
 
             {mode === "register" && (
               <div className="form-row">
-                <SelectField label="Gender" name="gender" options={["Male", "Female"]} />
                 <SelectField label="Grade" name="grade" options={["Grade 9", "Grade 10", "Grade 11", "Grade 12"]} />
                 <SelectField
                   label="Section"
@@ -230,6 +234,25 @@ export default function Home() {
                   options={["Section A", "Section B", "Section C", "Section D", "Section E", "Section F"]}
                 />
               </div>
+            )}
+
+            {isLogin && (
+              <>
+                <label className="sr-only" htmlFor="full-name">
+                  Full Name
+                </label>
+                <FieldShell>
+                  <UserIcon />
+                  <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    placeholder="Full Name"
+                    autoComplete="name"
+                    required
+                  />
+                </FieldShell>
+              </>
             )}
 
             <FieldShell>
