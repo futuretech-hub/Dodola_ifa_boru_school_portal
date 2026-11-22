@@ -200,7 +200,7 @@ export default function Home() {
             <p>
               {isLogin
                 ? "Log in to continue to your school workspace."
-                : "Submit your basic details for approval, then complete your profile."}
+                : "Register your account to get started."}
             </p>
           </div>
 
