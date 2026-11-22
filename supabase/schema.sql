@@ -155,6 +155,16 @@ alter table public.student_applications enable row level security;
 alter table public.student_enrollments enable row level security;
 alter table public.announcements enable row level security;
 
+-- Table privileges are required in addition to RLS policies.
+grant usage on schema public to anon, authenticated;
+grant select on public.profiles to authenticated;
+grant select, insert, update on public.student_profiles to authenticated;
+grant select on public.academic_years to authenticated;
+grant select on public.grade_sections to anon, authenticated;
+grant select, insert, update on public.student_applications to authenticated;
+grant select on public.student_enrollments to authenticated;
+grant select on public.announcements to authenticated;
+
 drop policy if exists "Users can read their own profile" on public.profiles;
 create policy "Users can read their own profile"
 on public.profiles for select to authenticated
