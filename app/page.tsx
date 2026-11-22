@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { DecorativeWaves } from "@/components/DecorativeWaves";
+import { studentAuthEmail, supabase } from "@/lib/supabase";
 
 type Mode = "login" | "register";
 
@@ -160,21 +162,101 @@ function SelectField({ label, name, options }: SelectFieldProps) {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [mode, setMode] = useState<Mode>("login");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const switchMode = (nextMode: Mode) => {
     setMode(nextMode);
     setSubmitted(false);
+    setStatusMessage("");
+    setErrorMessage("");
     setShowPassword(false);
     setShowConfirmPassword(false);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMessage("");
+    setStatusMessage("");
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const fullName = String(formData.get("full-name") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+
+    if (isLogin) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: studentAuthEmail(fullName),
+        password,
+      });
+
+      if (error) {
+        setErrorMessage("We could not log you in. Check your name and password, then try again.");
+      } else {
+        router.push("/student/dashboard");
+      }
+
+      setIsSubmitting(false);
+      return;
+    }
+
+    const gender = String(formData.get("gender") ?? "");
+    const grade = Number(formData.get("grade") ?? 0);
+    const section = String(formData.get("section") ?? "");
+    const confirmPassword = String(formData.get("confirm-password") ?? "");
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email: studentAuthEmail(fullName),
+      password,
+      options: { data: { full_name: fullName } },
+    });
+
+    if (signUpError || !data.user) {
+      setErrorMessage(signUpError?.message ?? "We could not create your account.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (!data.session) {
+      setErrorMessage("Supabase email confirmation is enabled. Disable it for this test project, then register again.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    const { error: profileError } = await supabase.from("student_profiles").upsert({
+      id: data.user.id,
+      gender,
+    });
+
+    const { error: applicationError } = await supabase.from("student_applications").insert({
+      user_id: data.user.id,
+      full_name: fullName,
+      gender,
+      grade,
+      section,
+    });
+
+    if (profileError || applicationError) {
+      setErrorMessage(profileError?.message ?? applicationError?.message ?? "Your account was created, but the application could not be saved.");
+      setIsSubmitting(false);
+      return;
+    }
+
     setSubmitted(true);
+    setStatusMessage("Your registration request has been submitted for homeroom teacher approval.");
+    setIsSubmitting(false);
   };
 
   const isLogin = mode === "login";
@@ -305,16 +387,14 @@ export default function Home() {
               </button>
             )}
 
-            <button className="primary-button" type="submit">
+            <button className="primary-button" type="submit" disabled={isSubmitting}>
               {isLogin ? <LoginIcon /> : <RegisterIcon />}
               <span>{isLogin ? "Log In" : "Register"}</span>
             </button>
 
-            {submitted && (
+            {(submitted || errorMessage) && (
               <p className="form-status" role="status">
-                {isLogin
-                  ? "The sign-in form is ready for Supabase authentication."
-                  : "Your registration request is ready for review. Complete your profile after approval."}
+                {errorMessage || statusMessage}
               </p>
             )}
           </form>
