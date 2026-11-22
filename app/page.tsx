@@ -200,7 +200,7 @@ export default function Home() {
             <p>
               {isLogin
                 ? "Log in to continue to your school workspace."
-                : "Register to access your Dodola Ifa Boru school workspace."}
+                : "Submit your basic details for approval, then complete your profile."}
             </p>
           </div>
 
@@ -291,7 +291,7 @@ export default function Home() {
               <p className="form-status" role="status">
                 {isLogin
                   ? "The sign-in form is ready for Supabase authentication."
-                  : "The registration form is ready for Supabase authentication."}
+                  : "Your registration request is ready for review. Complete your profile after approval."}
               </p>
             )}
           </form>
