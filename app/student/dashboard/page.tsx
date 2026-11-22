@@ -38,8 +38,20 @@ export default function StudentDashboard() {
         supabase.from("announcements").select("id, title, message, published_at").order("published_at", { ascending: false }).limit(5),
       ]);
 
-      if (profileError || !profile || profile.role !== "student") {
-        setErrorMessage("This account does not have access to the student dashboard.");
+      if (profileError) {
+        setErrorMessage(`Supabase could not read your profile: ${profileError.message}`);
+        setLoading(false);
+        return;
+      }
+
+      if (!profile) {
+        setErrorMessage("Your Auth account exists, but no matching public.profiles record was found.");
+        setLoading(false);
+        return;
+      }
+
+      if (profile.role !== "student") {
+        setErrorMessage(`This account has the role “${profile.role}”, not “student”.`);
         setLoading(false);
         return;
       }
